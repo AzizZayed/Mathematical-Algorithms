@@ -1,47 +1,46 @@
-
 public class FibonacciSequence {
 
-	public static final int MAX_NTH_FIBO = 92;
-	public static final int MAX_STR_FIBO = 1000000;
-	private long[] sequence = new long[MAX_NTH_FIBO + 1];
-	private String[] strSequence = new String[MAX_STR_FIBO + 1];
+	private static final int MAX_NTH_FIBO = 92;
 
-	public FibonacciSequence() {
-		sequence[0] = 0;
-		sequence[1] = 1;
-		strSequence[0] = "0";
-		strSequence[1] = "1";
+	public static long iterativeFibonacci(int n) {
 
-		for (int i = 2; i < sequence.length; i++) {
-			long res = sequence[i - 1] + sequence[i - 2];
-			sequence[i] = res;
-			strSequence[i] = Long.toString(res);
+		if (n <= 2)
+			return 1;
+		
+		if (n > MAX_NTH_FIBO)
+			return -1;
+		
+		long a = 0, b = 1, c = 1;
+		
+		for (int i = 2; i < n; i++) {
+			a = b;
+			b = c;
+			
+			c = a + b;
 		}
-
+		
+		return c;
+	}
+	
+	public static long recursiveFibonacci(int n) {
+		
+		if (n <= 2)
+			return 1;
+		
+		return (recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2));
 	}
 
-	public long term(int n) {
+	public static String big(int n) {
 
 		if (n <= MAX_NTH_FIBO)
-			return sequence[n];
-
-		return -1;
-	}
-
-	public String strTerm(int n) {
-
-		if (n <= MAX_STR_FIBO) {
-			String res = strSequence[n];
-			if (res != null)
-				return res;
-		}
+				return Long.toString(iterativeFibonacci(n));
 
 		String a, b, c = "";
 		int aLeft, bLeft;
 		int add = 0, carry, base = 10;
 
-		a = strTerm(MAX_NTH_FIBO - 1);
-		b = strTerm(MAX_NTH_FIBO);
+		a = big(MAX_NTH_FIBO - 1);
+		b = big(MAX_NTH_FIBO);
 
 		for (int i = MAX_NTH_FIBO + 1; i <= n; i++) {
 			c = "";
@@ -49,7 +48,9 @@ public class FibonacciSequence {
 			aLeft = a.length() - 1;
 			bLeft = b.length() - 1;
 			while (aLeft >= 0) {
-				add = Character.getNumericValue(a.charAt(aLeft)) + Character.getNumericValue(b.charAt(bLeft)) + carry;
+				int aDigit = Character.getNumericValue(a.charAt(aLeft));
+				int bDigit = Character.getNumericValue(b.charAt(bLeft));
+				add = aDigit + bDigit + carry;
 				c = (add % base) + c;
 				carry = Math.floorDiv(add, base);
 				aLeft--;
@@ -68,18 +69,15 @@ public class FibonacciSequence {
 			b = c;
 		}
 
-		if (n <= MAX_STR_FIBO)
-			strSequence[n] = c;
-
 		return c;
 	}
 
 	public static void main(String[] args) {
-		FibonacciSequence seq = new FibonacciSequence();
+		int n = 45;
 
-		int n = 90;
-
-		System.out.println(seq.strTerm(n));
+		System.out.println(FibonacciSequence.iterativeFibonacci(n));
+		System.out.println(FibonacciSequence.recursiveFibonacci(n));
+		System.out.println(FibonacciSequence.big(n));
 	}
 
 }

@@ -1,3 +1,5 @@
+package math;
+
 public class BaseConverter {
 
 	public static long toBase10(int initialBase, long value) {
