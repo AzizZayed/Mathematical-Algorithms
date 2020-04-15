@@ -1,9 +1,16 @@
-package math;
-
 import java.util.ArrayList;
 
+/**
+ * arbitrary sequence generator
+ */
 public class SequenceGenerator {
 
+	/**
+	 * generate prime numbers
+	 * 
+	 * @param n - maximum
+	 * @return an arraylist of all prime numbers under n
+	 */
 	public static ArrayList<Integer> primesUnder(int n) {
 		ArrayList<Integer> primeNumbers = new ArrayList<Integer>();
 
@@ -17,6 +24,12 @@ public class SequenceGenerator {
 		return primeNumbers;
 	}
 
+	/**
+	 * generate composite numbers
+	 * 
+	 * @param n - maximum
+	 * @return an arraylist of all composite numbers under n
+	 */
 	public static ArrayList<Integer> compositesUnder(int n) {
 		ArrayList<Integer> compositeNumbers = new ArrayList<Integer>();
 
@@ -30,6 +43,12 @@ public class SequenceGenerator {
 		return compositeNumbers;
 	}
 
+	/**
+	 * generate composite numbers boolean array
+	 * 
+	 * @param n - maximum
+	 * @return a boolean array with true for composite
+	 */
 	private static boolean[] genCompositeArray(int n) {
 		boolean[] compositeNumber = new boolean[n];
 
@@ -49,17 +68,30 @@ public class SequenceGenerator {
 		return compositeNumber;
 	}
 
-	public static long[] triangularNumbersUntil(int n) {
-		long[] triangularNums = new long[n + 1];
+	/**
+	 * triangular number generator
+	 * 
+	 * @param n - number of triangular number wanted
+	 * @return array with triangular number
+	 */
+	public static long[] triangularNumbers(int n) {
+		long[] triangularNums = new long[n];
 
-		for (int i = 0; i < triangularNums.length; i++) {
-			triangularNums[i] = (i * (i + 1)) / 2;
+		for (int i = 0; i < n; i++) {
+			int x = i + 1;
+			triangularNums[i] = (x * (x + 1)) / 2;
 		}
 
 		return triangularNums;
 
 	}
 
+	/**
+	 * pythagorean triplets generator
+	 * 
+	 * @param n - number of triplets
+	 * @return array with pythagorean triplets
+	 */
 	public static long[] pythagoreanTriples(int n) {
 		int bound = n * 3;
 		long[] triples = new long[bound];
@@ -86,10 +118,22 @@ public class SequenceGenerator {
 	public static void main(String[] args) {
 		int n = 100;
 
-		long[] x = pythagoreanTriples(n);
+		System.out.println("All prime numbers under " + n + " : " + SequenceGenerator.primesUnder(n));
+		System.out.println("All composite numbers under " + n + " : " + SequenceGenerator.compositesUnder(n));
 
-		for (int i = 0; i < x.length; i += 3) {
-			System.out.println(x[i] + ", " + x[i + 1] + ", " + x[i + 2]);
+		long[] array;
+
+		n = 5;
+		array = SequenceGenerator.triangularNumbers(n);
+		System.out.print(n + " first trangular numbers: ");
+		for (int i = 0; i < array.length; i++) {
+			System.out.print(array[i] + ", ");
+		}
+
+		array = SequenceGenerator.pythagoreanTriples(n);
+		System.out.println("\n" + n + " pythagorean triples:");
+		for (int i = 0; i < array.length; i += 3) {
+			System.out.println("\t" + array[i] + ", " + array[i + 1] + ", " + array[i + 2]);
 		}
 	}
 

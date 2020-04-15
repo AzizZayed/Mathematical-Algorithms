@@ -1,11 +1,12 @@
-package math;
-
+/**
+ * calculate the factorial
+ */
 public class FactorialCalculator {
 
 	/**
 	 * Calculate the factorial of an integer input iteratively
 	 * 
-	 * @param n: integer input
+	 * @param n - integer input
 	 * @return factorial of the integer input
 	 */
 	public static long iterativeFactorial(int n) {
@@ -14,7 +15,6 @@ public class FactorialCalculator {
 
 		for (int i = 2; i <= n; i++) {
 			result = result * i;
-			// result *= i; // this also works, it is the same thing
 		}
 
 		return result;
@@ -24,7 +24,7 @@ public class FactorialCalculator {
 	/**
 	 * Calculate the factorial of an integer input recursively
 	 * 
-	 * @param n: integer input
+	 * @param n - integer input
 	 * @return factorial of the integer input
 	 */
 	public static long recursiveFactorial(int n) {
@@ -40,7 +40,7 @@ public class FactorialCalculator {
 	 * Calculate the factorial of a big integer input made for result that a long is
 	 * unable to carry in memory
 	 * 
-	 * @param n: integer input
+	 * @param n - integer input
 	 * @return factorial of a big integer input
 	 */
 	public static String bigFactorial(int n) {
@@ -50,11 +50,8 @@ public class FactorialCalculator {
 
 		if (n < 0)
 			return null;
-
-		if (n < MAX_IN)
+		if (n <= MAX_IN) {
 			return Long.toString(recursiveFactorial(n));
-		else if (n == MAX_IN) {
-			return Long.toString(recursiveFactorial(MAX_IN));
 		} else {
 
 			result = Long.toString(recursiveFactorial(MAX_IN));
@@ -95,26 +92,25 @@ public class FactorialCalculator {
 			short partialresult = (short) (partialProduct % 10);
 
 			result = Short.toString(partialresult) + result;
-
 		}
 
-		result = Short.toString(carry) + result; //add the last digit that we neglected, MUST do
+		result = Short.toString(carry) + result; // add the last digit that we neglected, MUST do
 
 		return result;
 
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println("Code Testing:");
 
 		Long fact;
-		
+
 		fact = FactorialCalculator.iterativeFactorial(5);
 		System.out.println("5! = " + fact);
-		
+
 		fact = FactorialCalculator.recursiveFactorial(5);
 		System.out.println("5! = " + fact);
-		
+
 		String strFact = FactorialCalculator.bigFactorial(1000);
 		System.out.println("1000! = " + strFact);
 	}

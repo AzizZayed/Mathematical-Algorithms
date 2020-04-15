@@ -1,7 +1,15 @@
-package math;
-
+/**
+ * convert between bases
+ */
 public class BaseConverter {
 
+	/**
+	 * convert to base 10 a long value
+	 * 
+	 * @param initialBase - the base to convert from
+	 * @param value       - the base to convert from
+	 * @return the conversion to base 10
+	 */
 	public static long toBase10(int initialBase, long value) {
 
 		int sign = (int) Math.signum(value);
@@ -16,15 +24,23 @@ public class BaseConverter {
 
 		return (sign * result);
 	}
-	
+
+	/**
+	 * convert to base 10 a number inside a string, means it can be a very very big
+	 * number or a number in a higher base than 10
+	 * 
+	 * @param initialBase - the base to convert from
+	 * @param value       - the base to convert from
+	 * @return the conversion to base 10
+	 */
 	public static long toBase10(int initialBase, String value) {
-				
+
 		boolean negative = false;
 		if (value.charAt(0) == '-') {
 			value = value.substring(1);
 			negative = true;
 		}
-		
+
 		long result = 0;
 		for (int i = 0; i < value.length(); i++) {
 			int digit = Character.getNumericValue(value.charAt(i));
@@ -39,14 +55,22 @@ public class BaseConverter {
 		System.out.println("Code Testing:");
 
 		long res;
-		long input;
-		String strIn = "2D";
-		int base = 16;
+		int base;
 
-		input = 111111;
-
+		String strIn = "2D"; // hex
+		base = 16;
 		res = BaseConverter.toBase10(base, strIn);
 		System.out.println(strIn + " in base " + base + " is " + res + " in base 10");
+
+		long input = 111111; // binary
+		base = 2;
+		res = BaseConverter.toBase10(base, input);
+		System.out.println(input + " in base " + base + " is " + res + " in base 10");
+
+		input = 22222; // base 3
+		base = 3;
+		res = BaseConverter.toBase10(base, input);
+		System.out.println(input + " in base " + base + " is " + res + " in base 10");
 	}
 
 }
